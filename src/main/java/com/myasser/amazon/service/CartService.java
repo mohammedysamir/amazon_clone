@@ -1,5 +1,6 @@
 package com.myasser.amazon.service;
 
+import com.myasser.amazon.database.MongoCartRepository;
 import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.Product;
 import com.myasser.amazon.model.User;
@@ -15,35 +16,28 @@ import java.util.UUID;
 public class CartService {
     //todo: add database
     Cart cart;
-    User user;
 
+    MongoCartRepository cartRepository;
     @Autowired
-    public CartService(User user) {
-        user = user;
-    }
-
-    public CartService(User user, Cart cart) {
-        this.user = user;
-        this.cart = cart;
+    public CartService(MongoCartRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
 
     public Cart postCart() {
-        cart = new Cart(new ArrayList<Product>(), UUID.randomUUID(), user.getUserId());
-        //todo: save to db
+        return cartRepository.save(cart);
+    }
+
+    public Cart getCart(UUID cartId) {
+        cart = cartRepository.findById(cartId).get();
         return cart;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Cart putCart(UUID id,Cart cart) {
+        return cartRepository.putCart(id,cart);
     }
 
-    public Cart putCart(Cart cart) {
-        this.cart = cart;
-        return cart;
-    }
-
-    public void deleteCart() {
-        cart = null;
+    public void deleteCart(UUID id) {
+        cartRepository.delete(getCart(id));
     }
 
     public Product postProduct(Product product) {
@@ -51,19 +45,15 @@ public class CartService {
         return product;
     }
 
-    public void clearCart() {
-        cart.getCartProduct().clear();
+    public void deleteProductById(UUID cartId,UUID id) {
+        getCart(cartId).getCartProduct().removeIf(product -> product.getId().equals(id));
     }
 
-    public void deleteProductById(UUID id) {
-        cart.getCartProduct().removeIf(product -> product.getId().equals(id));
+    public List<Product> getCartProducts(UUID id){
+        return getCart(id).getCartProduct();
     }
 
-    public List<Product> getCartProducts(){
-        return cart.getCartProduct();
-    }
-
-    public Optional<Product> getCartProductById(UUID id) {
-        return cart.getCartProduct().stream().filter(product -> product.getId().equals(id)).findFirst();
+    public Optional<Product> getCartProductById(UUID cartId,UUID id) {
+        return getCart(id).getCartProduct().stream().filter(product -> product.getId().equals(id)).findFirst();
     }
 }
