@@ -1,9 +1,12 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+@Document("products")
 public class Product {
     public UUID getId() {
         return id;
@@ -97,6 +100,7 @@ public class Product {
         this.quantity = quantity;
     }
 
+    @Id
     UUID id;
     String name, description, image, category, brand, color;
     double price;

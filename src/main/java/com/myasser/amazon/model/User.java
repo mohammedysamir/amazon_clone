@@ -1,10 +1,14 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+@Document("users")
 public class User {
+    @Id
     UUID userId;
     String name, email, password;
     Cart cart;

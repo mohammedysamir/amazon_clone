@@ -1,13 +1,17 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.UUID;
 
+@Document("cart")
 public class Cart {
     List<Product> cartProduct;
     UUID userId;
+    @Id
     UUID cartId;
     double total;
 
