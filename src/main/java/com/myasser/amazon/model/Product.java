@@ -7,8 +7,7 @@ public class Product {
         return id;
     }
 
-    public Product(UUID id, String name, String description, String image, String category, double price, int quantity) {
-        this.id = id;
+    public Product(String name, String description, String image, String category, double price, int quantity) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -17,8 +16,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(UUID id, String name, String description, String image, String category, String brand, String color, double price, int quantity) {
-        this.id = id;
+    public Product(String name, String description, String image, String category, String brand, String color, double price, int quantity) {
         this.name = name;
         this.description = description;
         this.image = image;
