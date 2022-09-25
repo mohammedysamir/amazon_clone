@@ -3,10 +3,9 @@ package com.myasser.amazon.controller;
 import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -17,23 +16,23 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public User getUser() {
-        return userService.getUser();
+    @GetMapping(path = {"id"})
+    public User getUser(@PathVariable("id") UUID id) {
+        return userService.getUser(id);
     }
 
     @PutMapping
     public void putUser(User user) {
-        userService.setUser(user);
+        userService.putUser(user);
     }
 
-    @GetMapping("/cart")
-    public Cart getCart() {
-        return userService.getCart();
+    @GetMapping(path = {"id/cart"})
+    public Cart getCart(@PathVariable("id") UUID id) {
+        return userService.getCart(id);
     }
 
-    @PutMapping("/cart")
-    public Cart putCart(Cart cart) {
-        return userService.putCart(cart);
+    @PutMapping("id/cart")
+    public Cart putCart(@PathVariable("id") UUID id, Cart cart) {
+        return userService.putCart(id, cart);
     }
 }

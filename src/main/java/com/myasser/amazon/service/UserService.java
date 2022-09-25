@@ -1,33 +1,36 @@
 package com.myasser.amazon.service;
 
+import com.myasser.amazon.database.MongoUsersRepository;
 import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
+
 @Service
 public class UserService {
-    User user;
+    MongoUsersRepository usersRepository;
 
     @Autowired
-    UserService(User user) {
-        this.user = user;
+    UserService(MongoUsersRepository userRepo) {
+        this.usersRepository = userRepo;
     }
 
-    public User getUser() {
-        return user;
+    public User getUser(UUID id) {
+        return usersRepository.findById(id).orElse(null);
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void putUser(User user) {
+        usersRepository.putUser(user);
     }
 
-    public Cart getCart() {
-        return user.getCart();
+    public Cart getCart(UUID id) {
+        return usersRepository.getUserCart(id);
     }
 
-    public Cart putCart(Cart cart) {
-        user.setCart(cart);
-        return cart;
+    public Cart putCart(UUID id, Cart cart) {
+        return usersRepository.putUserCart(id, cart);
     }
 }
