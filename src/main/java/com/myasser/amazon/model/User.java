@@ -62,3 +62,4 @@ public class User {
         this.password = password;
     }
 }
+//todo: add methods in service and controller to update user, checkout, delete user.

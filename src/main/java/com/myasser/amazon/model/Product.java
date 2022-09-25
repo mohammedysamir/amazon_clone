@@ -102,3 +102,4 @@ public class Product {
     double price;
     int quantity;
 }
+//todo: add method to service and  controller to get ,update, delete and post product

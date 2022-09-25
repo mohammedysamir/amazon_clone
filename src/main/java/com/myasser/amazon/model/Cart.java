@@ -51,3 +51,4 @@ public class Cart {
         this.cartId = cartId;
     }
 }
+//todo: add methods to service and controller for get product by id, get all products, add product, clear, delete product, fetch products from DB

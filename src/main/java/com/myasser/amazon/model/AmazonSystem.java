@@ -22,3 +22,4 @@ public class AmazonSystem {
         this.users = users;
     }
 }
+//todo: add methods to service and controller to post, get (all - id), put, delete users
