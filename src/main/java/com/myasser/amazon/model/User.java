@@ -1,5 +1,7 @@
 package com.myasser.amazon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class User {
@@ -47,19 +49,20 @@ public class User {
         this.cart = cart;
     }
 
-    public User(UUID userId, String name, String email, String password, Cart cart) {
-        this.userId = userId;
+    public User(@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password, Cart cart) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.cart = cart;
     }
 
-    public User(UUID userId, String name, String email, String password) {
-        this.userId = userId;
+    public User(@JsonProperty("name") String name) {
+        this.name = name;
+    }
+
+    public User(@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 }
-//todo: add methods in service and controller to update user, checkout, delete user.

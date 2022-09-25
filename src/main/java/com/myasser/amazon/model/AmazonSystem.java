@@ -1,12 +1,14 @@
 package com.myasser.amazon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AmazonSystem {
     List<User> users;
 
-    public AmazonSystem(List<User> users) {
+    public AmazonSystem(@JsonProperty("user-list") List<User> users) {
         this.users = users;
     }
 
@@ -22,4 +24,3 @@ public class AmazonSystem {
         this.users = users;
     }
 }
-//todo: add methods to service and controller to post, get (all - id), put, delete users
