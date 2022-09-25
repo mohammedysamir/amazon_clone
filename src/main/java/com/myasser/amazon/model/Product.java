@@ -1,5 +1,7 @@
 package com.myasser.amazon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class Product {
@@ -7,7 +9,7 @@ public class Product {
         return id;
     }
 
-    public Product(String name, String description, String image, String category, double price, int quantity) {
+    public Product(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("image") String image, @JsonProperty("category") String category, @JsonProperty("price") double price, @JsonProperty("quantity") int quantity) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -16,15 +18,15 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(String name, String description, String image, String category, String brand, String color, double price, int quantity) {
+    public Product(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("image") String image, @JsonProperty("brand") String brand, @JsonProperty("color") String color, @JsonProperty("category") String category, @JsonProperty("price") double price, @JsonProperty("quantity") int quantity) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.category = category;
-        Brand = brand;
-        Color = color;
         this.price = price;
         this.quantity = quantity;
+        this.color = color;
+        this.brand = brand;
     }
 
     public void setId(UUID id) {
@@ -64,19 +66,19 @@ public class Product {
     }
 
     public String getBrand() {
-        return Brand;
+        return brand;
     }
 
     public void setBrand(String brand) {
-        Brand = brand;
+        brand = brand;
     }
 
     public String getColor() {
-        return Color;
+        return color;
     }
 
     public void setColor(String color) {
-        Color = color;
+        color = color;
     }
 
     public double getPrice() {
@@ -96,8 +98,7 @@ public class Product {
     }
 
     UUID id;
-    String name, description, image, category, Brand, Color;
+    String name, description, image, category, brand, color;
     double price;
     int quantity;
 }
-//todo: add method to service and  controller to get ,update, delete and post product

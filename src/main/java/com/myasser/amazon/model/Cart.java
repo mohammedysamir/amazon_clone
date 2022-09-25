@@ -1,5 +1,7 @@
 package com.myasser.amazon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -9,7 +11,7 @@ public class Cart {
     UUID cartId;
     double total;
 
-    public Cart(List<Product> cartProduct, UUID userId, UUID cartId) {
+    public Cart(@JsonProperty("cart-list") List<Product> cartProduct, UUID userId, UUID cartId) {
         this.cartProduct = cartProduct;
         this.userId = userId;
         this.cartId = cartId;
