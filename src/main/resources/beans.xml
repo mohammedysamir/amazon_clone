@@ -15,5 +15,5 @@
     </bean>
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-<!--    <mongo:repositories base-package="core.repository" mongo-template-ref="mongoTemplate"/>-->
+    <mongo:repositories base-package="com.myasser.amazon.database" mongo-template-ref="mongoTemplate"/>
 </beans>
