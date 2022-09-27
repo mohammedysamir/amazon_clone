@@ -18,6 +18,9 @@ public class ProductController {
         this.service = service;
     }
 
+    public ProductController() {
+    }
+
     @PostMapping
     public Product postProduct(@RequestBody Product product) {
         product.setId(UUID.randomUUID());
@@ -31,7 +34,7 @@ public class ProductController {
 
     @GetMapping(path = "{id}")
     public Product getProductById(@PathVariable UUID id) {
-        return service.getProductById(id).orElse(null);
+        return service.getProductById(id);
     }
 
     @GetMapping
@@ -42,5 +45,10 @@ public class ProductController {
     @DeleteMapping(path = "{id}")
     public void deleteProduct(@PathVariable UUID id) {
         service.deleteProduct(id);
+    }
+
+    @GetMapping(path = "category/{category}") //todo: test path
+    public List<Product> getProductsByCategory(@PathVariable String category) {
+        return service.getProductsByCategory(category);
     }
 }

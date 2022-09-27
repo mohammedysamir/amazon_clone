@@ -1,6 +1,8 @@
 package com.myasser.amazon.service;
 
+import com.myasser.amazon.database.MongoProductsRepository;
 import com.myasser.amazon.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,42 +12,52 @@ import java.util.UUID;
 
 @Service
 public class ProductService {
+    MongoProductsRepository productsRepository;
     List<Product> products;
-
-    //todo: add db instance and wire it
 
     public ProductService() {
         products = new ArrayList<>();
     }
 
-    public Optional<Product> getProductById(UUID id) {
-        return products.stream().filter(product -> product.getId().equals(id)).findFirst();
+    @Autowired
+    public ProductService(MongoProductsRepository productsRepository) {
+        this.productsRepository = productsRepository;
+        products = productsRepository.findAll();
+    }
+
+    public Product getProductById(UUID id) {
+        return productsRepository.getProductById(id).orElse(null);
     }
 
     public List<Product> getAllProducts() {
-        return products;
+        return productsRepository.findAll();
     }
 
     public Product postProduct(Product product) {
-        products.add(product);
+        productsRepository.save(product);
         return product;
     }
 
     public Product putProduct(UUID id, Product product) {
-        int index = products.indexOf(getProductById(id).get());
+        int index = products.indexOf(getProductById(id));
         if (index >= 0) {
             products.set(index, product);
+            productsRepository.save(product);
             return products.get(index);
         } else
             return postProduct(product);
     }
 
     public void deleteProduct(UUID id) {
-        Product product = getProductById(id).get();
-        if (product != null)
+        Product product = getProductById(id);
+        if (product != null) {
             products.remove(product);
-        else
+            productsRepository.delete(product);
+        } else
             System.out.println("Product with id " + id + " not found");
     }
+
+    public List<Product> getProductsByCategory(String category) {
+        return productsRepository.getProductByCategory(category).orElse(new ArrayList<Product>());
+    }
 }
-//re-move implementation to database repo
