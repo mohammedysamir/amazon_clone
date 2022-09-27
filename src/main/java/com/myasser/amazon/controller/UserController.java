@@ -30,6 +30,11 @@ public class UserController {
         userService.putUser(user);
     }
 
+    @PostMapping
+    public void postUser(User user) {
+        userService.postUser(user);
+    }
+
     @GetMapping(path = {"id/cart"})
     public Cart getCart(@PathVariable("id") UUID id) {
         return userService.getCart(id);
