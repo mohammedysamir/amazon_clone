@@ -1,5 +1,6 @@
 package com.myasser.amazon.service;
 
+import com.myasser.amazon.database.MongoSystemRepository;
 import com.myasser.amazon.model.AmazonSystem;
 import com.myasser.amazon.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,41 +13,31 @@ import java.util.UUID;
 @Service
 public class AmazonSystemService {
     //todo: add db instance
-    AmazonSystem system;
+    MongoSystemRepository systemRepository;
 
     @Autowired
-    public AmazonSystemService(AmazonSystem system) {
-        this.system = system;
-    }
-
-    public AmazonSystem getSystem() {
-        return system;
+    public AmazonSystemService(MongoSystemRepository systemRepository) {
+        this.systemRepository = systemRepository;
     }
 
     public List<User> getUsers() {
-        return system.getUsers();
+        return systemRepository.findAll();
     }
 
     public Optional<User> getUserById(UUID id) {
-        return system.getUsers().stream().findFirst();
+        return systemRepository.getUserById(id.toString());
     }
 
     public User putUser(UUID id, User user) {
-        int index = system.getUsers().indexOf(getUserById(id).get());
-        system.getUsers().set(index, user);
-        return user;
+        return systemRepository.updateUserById(id.toString(), user);
     }
 
     public User postUser(User user) {
-        system.getUsers().add(user);
-        return user;
+        return systemRepository.save(user);
     }
 
     public void deleteUser(UUID id) {
-        int index = system.getUsers().indexOf(getUserById(id).get());
-        if (index >= 0)
-            system.getUsers().remove(index);
-        else
-            System.out.println("User with id " + id + " not found");
+        User user = systemRepository.deleteUserById(id.toString());
+        System.out.println("User deleted with id: " + user.getUserId());
     }
 }

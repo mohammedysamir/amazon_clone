@@ -13,6 +13,9 @@ import java.util.UUID;
 public class AmazonSystemController {
     AmazonSystemService amazonSystemService;
 
+    public AmazonSystemController() {
+    }
+
     @Autowired
     AmazonSystemController(AmazonSystemService amazonSystemService) {
         this.amazonSystemService = amazonSystemService;

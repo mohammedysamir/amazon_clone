@@ -19,6 +19,9 @@ public class CartController {
         this.cartService = cartService;
     }
 
+    public CartController() {
+    }
+
     @PostMapping
     public Product postProductToCart(@RequestBody Product product) {
         return cartService.postProduct(product);

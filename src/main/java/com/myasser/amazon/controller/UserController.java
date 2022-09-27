@@ -3,6 +3,7 @@ package com.myasser.amazon.controller;
 import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -12,6 +13,9 @@ import java.util.UUID;
 public class UserController {
     UserService userService;
 
+    public UserController() {}
+
+    @Autowired
     UserController(UserService userService) {
         this.userService = userService;
     }

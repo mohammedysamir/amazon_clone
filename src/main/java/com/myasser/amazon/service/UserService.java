@@ -13,6 +13,9 @@ import java.util.UUID;
 public class UserService {
     MongoUsersRepository usersRepository;
 
+    public UserService() {
+    }
+
     @Autowired
     UserService(MongoUsersRepository userRepo) {
         this.usersRepository = userRepo;

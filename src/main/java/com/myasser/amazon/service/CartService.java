@@ -23,6 +23,9 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
+    public CartService() {
+    }
+
     public Cart postCart() {
         return cartRepository.save(cart);
     }
