@@ -35,8 +35,4 @@ public class UserController {
         return userService.getCart(id);
     }
 
-    @PutMapping("id/cart")
-    public Cart putCart(@PathVariable("id") UUID id, Cart cart) {
-        return userService.putCart(id, cart);
     }
-}
