@@ -35,6 +35,9 @@ public class UserController {
     @PostMapping
     public User postUser(@RequestBody User user) {
         user.setUserId(UUID.randomUUID().toString());
+        //create cart
+        if (user.getCart() == null)
+            user.setCart(userService.initiateUserCart(user.getUserId()));
         return userService.postUser(user);
     }
 

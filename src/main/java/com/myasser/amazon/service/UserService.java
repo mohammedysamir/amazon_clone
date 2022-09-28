@@ -57,4 +57,12 @@ public class UserService {
     public Cart getCart(String id) {
         return usersRepository.getUserCart(id);
     }
+
+    public Cart initiateUserCart(String userId) {
+        Cart cart = new Cart();
+        cart.setCartId(UUID.randomUUID().toString());
+        cart.setUserId(userId);
+        cart.setCartProduct(new ArrayList<>());
+        return cart;
+    }
 }
