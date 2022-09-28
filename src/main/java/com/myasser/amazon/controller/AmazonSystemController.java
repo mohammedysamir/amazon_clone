@@ -35,7 +35,6 @@ public class AmazonSystemController {
     @PostMapping(consumes = {"application/json"})
     public User postUser(@RequestBody User user) {
         user.setUserId(UUID.randomUUID().toString());
-        System.out.println("Here in system's post user");
         return amazonSystemService.postUser(user);
     }
 

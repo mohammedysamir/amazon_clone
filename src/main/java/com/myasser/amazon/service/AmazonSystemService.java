@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class AmazonSystemService {
-    //todo: add db instance
     MongoSystemRepository systemRepository;
 
     @Autowired
@@ -24,7 +23,7 @@ public class AmazonSystemService {
     }
 
     public Optional<User> getUserById(String id) {
-        return systemRepository.getUserById(id);
+        return systemRepository.findById(id);
     }
 
     public User putUser(String id, User user) {
@@ -36,9 +35,14 @@ public class AmazonSystemService {
     }
 
     public void deleteUser(String id) {
-        //User user = systemRepository.deleteUserById(id);
-        systemRepository.delete(getUserById(id).get());
-        System.out.println("User deleted with id: " + id);
+        User user = null;
+        user = getUserById(id).isPresent() ? getUserById(id).get() : null;
+        if (user != null) {
+            systemRepository.delete(user);
+            System.out.println("User deleted with id: " + id);
+            return;
+        }
+        System.out.println("User not found");
     }
 
     public void deleteAllUsers() {
