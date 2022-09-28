@@ -27,6 +27,7 @@ public class ProductService {
         return productsRepository.getProductById(id).orElse(null);
     }
 
+    //todo: need to be removed and just called from system
     public List<Product> getAllProducts() {
         return productsRepository.findAll();
     }

@@ -6,6 +6,9 @@ import com.myasser.amazon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,23 +23,28 @@ public class UserController {
     }
 
     @GetMapping(path = {"id"})
-    public User getUser(@PathVariable("id") String id) {
+    public User getUser(@PathVariable String id) {
         return userService.getUser(id);
     }
 
     @PutMapping(path = {"id"})
-    public User putUser(@PathVariable("id") String id, @RequestBody User user) {
+    public User putUser(@PathVariable String id, @RequestBody User user) {
         return userService.putUser(id, user);
     }
 
     @PostMapping
     public User postUser(@RequestBody User user) {
+        user.setUserId(UUID.randomUUID().toString());
         return userService.postUser(user);
     }
 
     @GetMapping(path = {"id/cart"})
-    public Cart getCart(@PathVariable("id") String id) {
+    public Cart getCart(@PathVariable String id) {
         return userService.getCart(id);
     }
 
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }

@@ -47,6 +47,7 @@ public class ProductController {
         service.deleteProduct(id);
     }
 
+    //todo: move to system controller
     @GetMapping(path = "category/{category}") //todo: test path
     public List<Product> getProductsByCategory(@PathVariable String category) {
         return service.getProductsByCategory(category);

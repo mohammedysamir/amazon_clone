@@ -31,11 +31,17 @@ public class UserService {
 
     //todo: maybe fail because of UUID
     public User getUser(String id) {
-        return usersRepository.findById(id).orElse(null);
+        return usersRepository.getUserById(id).orElse(null);
     }
 
     public User postUser(User user) {
-        return usersRepository.insert(user);
+        usersRepository.insert(user);
+        return user;
+    }
+
+    //todo: need to be removed and just called from system
+    public List<User> getAllUsers() {
+        return usersRepository.findAll();
     }
 
     public User putUser(String id, User user) {
