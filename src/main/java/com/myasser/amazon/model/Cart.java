@@ -3,22 +3,32 @@ package com.myasser.amazon.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.UUID;
 
 @Document("cart")
 public class Cart {
-    List<Product> cartProduct;
-    UUID userId;
     @Id
-    UUID cartId;
+    @JsonProperty("cartId")
+    @NonNull
+    String cartId;
+    @JsonProperty("products")
+    List<Product> cartProduct;
+    @JsonProperty("userId")
+    String userId;
+    @JsonProperty("total")
     double total;
 
-    public Cart(@JsonProperty("cart-list") List<Product> cartProduct, UUID userId, UUID cartId) {
+    public Cart(List<Product> cartProduct, String userId, String cartId) {
         this.cartProduct = cartProduct;
         this.userId = userId;
         this.cartId = cartId;
+    }
+
+    public Cart() {
+        cartId = UUID.randomUUID().toString();
     }
 
     public List<Product> getCartProduct() {
@@ -29,19 +39,19 @@ public class Cart {
         this.cartProduct = cartProduct;
     }
 
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public UUID getCartId() {
+    public String getCartId() {
         return cartId;
     }
 
-    public void setCartId(UUID cartId) {
+    public void setCartId(String cartId) {
         this.cartId = cartId;
     }
 
@@ -53,7 +63,7 @@ public class Cart {
         this.total = total;
     }
 
-    public Cart(UUID cartId) {
+    public Cart(String cartId) {
         this.cartId = cartId;
     }
 }

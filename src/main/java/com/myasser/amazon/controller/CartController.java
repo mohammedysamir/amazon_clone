@@ -7,7 +7,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/cart")
@@ -28,17 +27,22 @@ public class CartController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deleteProductFromCart(@NonNull UUID cartId, @PathVariable UUID id) {
-        cartService.deleteProductById(cartId, id);
+    public void deleteProductFromCart(@NonNull String id, @PathVariable String productId) {
+        cartService.deleteProductById(id, productId);
+    }
+
+    @GetMapping(path = "{id}/{productId}")
+    public Product getProductFromCart(@NonNull String id, @PathVariable String productId) {
+        return cartService.getCartProductById(id, productId).orElse(null);
     }
 
     @GetMapping(path = "{id}")
-    public Product getProductFromCart(@NonNull UUID cartId, @PathVariable UUID id) {
-        return cartService.getCartProductById(cartId, id).orElse(null);
+    public List<Product> getCartProducts(@PathVariable String id) {
+        return cartService.getCartProducts(id);
     }
 
-    @GetMapping
-    public List<Product> getCartProducts(@NonNull UUID cartId) {
-        return cartService.getCartProducts(cartId);
+    @GetMapping(path = "{id}/total")
+    public double getCartTotal(@PathVariable String id) {
+        return cartService.calculateTotalPrice(id);
     }
 }
