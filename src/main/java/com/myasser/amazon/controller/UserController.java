@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PutMapping(path = {"id"})
-    public User putUser(String id, @RequestBody User user) {
+    public User putUser(@PathVariable("id") String id, @RequestBody User user) {
         return userService.putUser(id, user);
     }
 
