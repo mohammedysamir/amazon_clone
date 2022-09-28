@@ -1,16 +1,31 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Document("system")
 public class AmazonSystem {
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
+    }
+
+    @Id
+    @JsonProperty("systemId")
+    @NonNull
+    String systemId;
+    @JsonProperty("users")
     List<User> users;
 
-    public AmazonSystem(@JsonProperty("user-list") List<User> users) {
+    public AmazonSystem(List<User> users) {
         this.users = users;
     }
 

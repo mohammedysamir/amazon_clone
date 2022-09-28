@@ -1,5 +1,6 @@
 package com.myasser.amazon.controller;
 
+import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.AmazonSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class AmazonSystemController {
     }
 
     @GetMapping(path = "{id}")
-    public User getUserById(@PathVariable UUID id) {
+    public User getUserById(@PathVariable("id") String id) {
         return amazonSystemService.getUserById(id).orElse(null);
     }
 
@@ -31,19 +32,26 @@ public class AmazonSystemController {
         return amazonSystemService.getUsers();
     }
 
-    @PostMapping
+    @PostMapping(consumes = {"application/json"})
     public User postUser(@RequestBody User user) {
-        user.setUserId(UUID.randomUUID());
+        user.setUserId(UUID.randomUUID().toString());
+        System.out.println("Here in system's post user");
         return amazonSystemService.postUser(user);
     }
 
+    //todo: issues when operate on user's id
     @DeleteMapping(path = "{id}")
-    public void deleteUser(@PathVariable UUID id) {
+    public void deleteUser(@PathVariable String id) {
         amazonSystemService.deleteUser(id);
     }
 
+    @DeleteMapping
+    public void deleteAllUsers() {
+        amazonSystemService.deleteAllUsers();
+    }
+
     @PutMapping(path = "{id}")
-    public User putUser(@PathVariable UUID id, @RequestBody User user) {
+    public User putUser(@PathVariable String id, @RequestBody User user) {
         return amazonSystemService.putUser(id, user);
     }
 }

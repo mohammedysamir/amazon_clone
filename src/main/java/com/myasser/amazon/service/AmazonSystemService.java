@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AmazonSystemService {
@@ -24,20 +23,25 @@ public class AmazonSystemService {
         return systemRepository.findAll();
     }
 
-    public Optional<User> getUserById(UUID id) {
-        return systemRepository.getUserById(id.toString());
+    public Optional<User> getUserById(String id) {
+        return systemRepository.getUserById(id);
     }
 
-    public User putUser(UUID id, User user) {
-        return systemRepository.updateUserById(id.toString(), user);
-    }
-
-    public User postUser(User user) {
+    public User putUser(String id, User user) {
         return systemRepository.save(user);
     }
 
-    public void deleteUser(UUID id) {
-        User user = systemRepository.deleteUserById(id.toString());
-        System.out.println("User deleted with id: " + user.getUserId());
+    public User postUser(User user) {
+        return systemRepository.insert(user);
+    }
+
+    public void deleteUser(String id) {
+        //User user = systemRepository.deleteUserById(id);
+        systemRepository.delete(getUserById(id).get());
+        System.out.println("User deleted with id: " + id);
+    }
+
+    public void deleteAllUsers() {
+        systemRepository.deleteAll();
     }
 }
