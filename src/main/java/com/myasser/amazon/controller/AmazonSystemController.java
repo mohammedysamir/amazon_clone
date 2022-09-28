@@ -3,6 +3,7 @@ package com.myasser.amazon.controller;
 import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.AmazonSystemService;
+import com.myasser.amazon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,11 @@ public class AmazonSystemController {
     @PostMapping(consumes = {"application/json"})
     public User postUser(@RequestBody User user) {
         user.setUserId(UUID.randomUUID().toString());
+        //to initiate user's cart
+        if (user.getCart() == null){
+            UserService userService = new UserService();
+            user.setCart(userService.initiateUserCart(user.getUserId()));
+        }
         return amazonSystemService.postUser(user);
     }
 

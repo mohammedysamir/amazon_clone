@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -29,7 +30,6 @@ public class UserService {
         users = usersRepository.findAll();
     }
 
-    //todo: maybe fail because of UUID
     public User getUser(String id) {
         return usersRepository.getUserById(id).orElse(null);
     }
@@ -39,10 +39,6 @@ public class UserService {
         return user;
     }
 
-    //todo: need to be removed and just called from system
-    public List<User> getAllUsers() {
-        return usersRepository.findAll();
-    }
 
     public User putUser(String id, User user) {
         int index = usersRepository.findAll().indexOf(getUser(id));
@@ -64,5 +60,35 @@ public class UserService {
         cart.setUserId(userId);
         cart.setCartProduct(new ArrayList<>());
         return cart;
+    }
+
+    public Cart addProductToCart(String userId, Product product) {
+        Cart cart = getCart(userId);
+        cart.getCartProduct().add(product);
+        User user = getUser(userId);
+        user.setCart(cart);
+        usersRepository.save(user);
+        return cart;
+    }
+
+    public Cart deleteProductFromCart(String userId, String productId) {
+        Cart cart = getCart(userId);
+        cart.getCartProduct().removeIf(product -> product.getId().equals(productId));
+        User user = getUser(userId);
+        user.setCart(cart);
+        usersRepository.save(user);
+        return cart;
+    }
+
+    public List<Product> getCartProducts(String userId) {
+        return getCart(userId).getCartProduct();
+    }
+
+    public Optional<Product> getCartProduct(String userId, String productId) {
+        return getCartProducts(userId).stream().filter(product -> product.getId().equals(productId)).findFirst();
+    }
+
+    public Double calculateCartTotal(String userId) {
+        return getCartProducts(userId).stream().mapToDouble(Product::getPrice).sum();
     }
 }
