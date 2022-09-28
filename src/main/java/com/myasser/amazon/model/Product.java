@@ -68,7 +68,7 @@ public class Product {
     }
 
     public void setBrand(String brand) {
-        brand = brand;
+        this.brand = brand;
     }
 
     public String getColor() {
@@ -76,7 +76,7 @@ public class Product {
     }
 
     public void setColor(String color) {
-        color = color;
+        this.color = color;
     }
 
     public double getPrice() {
