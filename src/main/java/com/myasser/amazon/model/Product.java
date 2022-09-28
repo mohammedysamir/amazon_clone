@@ -1,6 +1,8 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
@@ -27,97 +29,47 @@ public class Product {
         this.brand = brand;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
+    @Setter
+    @Getter
     @Id
     @JsonProperty("id")
     String id;
+    @Setter
+    @Getter
     @JsonProperty("name")
     @NonNull
     String name;
+    @Setter
+    @Getter
     @JsonProperty("description")
     @NonNull
 
     String description;
+    @Setter
+    @Getter
     @JsonProperty("image")
     String image;
-    @NonNull
 
+    @NonNull
+    @Setter
+    @Getter
     @JsonProperty("category")
     String category;
+    @Setter
+    @Getter
     @JsonProperty("brand")
     String brand;
+    @Setter
+    @Getter
     @JsonProperty("color")
     String color;
+    @Setter
+    @Getter
     @NonNull
     @JsonProperty("price")
     double price;
+    @Setter
+    @Getter
     @NonNull
     @JsonProperty("quantity")
     int quantity;

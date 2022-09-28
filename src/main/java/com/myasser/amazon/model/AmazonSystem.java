@@ -1,6 +1,8 @@
 package com.myasser.amazon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
@@ -21,7 +23,11 @@ public class AmazonSystem {
     @Id
     @JsonProperty("systemId")
     @NonNull
+    @Setter
+    @Getter
     String systemId;
+    @Setter
+    @Getter
     @JsonProperty("users")
     List<User> users;
 
@@ -32,12 +38,12 @@ public class AmazonSystem {
     public AmazonSystem() {
         this.users = new ArrayList<>();
     }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+//
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 }
