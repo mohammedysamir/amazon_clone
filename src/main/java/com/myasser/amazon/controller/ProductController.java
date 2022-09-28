@@ -23,17 +23,17 @@ public class ProductController {
 
     @PostMapping
     public Product postProduct(@RequestBody Product product) {
-        product.setId(UUID.randomUUID());
+        product.setId(UUID.randomUUID().toString());
         return service.postProduct(product);
     }
 
     @PutMapping(path = "{id}")
-    public Product putProduct(@PathVariable UUID id, @RequestBody Product product) {
+    public Product putProduct(@PathVariable String id, @RequestBody Product product) {
         return service.putProduct(id, product);
     }
 
     @GetMapping(path = "{id}")
-    public Product getProductById(@PathVariable UUID id) {
+    public Product getProductById(@PathVariable String id) {
         return service.getProductById(id);
     }
 
@@ -43,7 +43,7 @@ public class ProductController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deleteProduct(@PathVariable UUID id) {
+    public void deleteProduct(@PathVariable String id) {
         service.deleteProduct(id);
     }
 

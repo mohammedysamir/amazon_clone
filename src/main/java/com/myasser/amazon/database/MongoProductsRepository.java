@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface MongoProductsRepository extends MongoRepository<Product, UUID> {
 
     @Query("{ 'id' : ?0 }")
-    Optional<Product> getProductById(UUID id);
+    Optional<Product> getProductById(String id);
 
 
     @Query("{ 'category' : ?0 }")

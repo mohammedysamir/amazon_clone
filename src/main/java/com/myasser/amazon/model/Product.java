@@ -3,25 +3,20 @@ package com.myasser.amazon.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
 @Document("products")
 public class Product {
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public Product(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("image") String image, @JsonProperty("category") String category, @JsonProperty("price") double price, @JsonProperty("quantity") int quantity) {
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.category = category;
-        this.price = price;
-        this.quantity = quantity;
+    public Product() {
     }
 
-    public Product(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("image") String image, @JsonProperty("brand") String brand, @JsonProperty("color") String color, @JsonProperty("category") String category, @JsonProperty("price") double price, @JsonProperty("quantity") int quantity) {
+    public Product(String name, String description, String category, double price, int quantity, String image, String brand, String color) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -32,7 +27,7 @@ public class Product {
         this.brand = brand;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -101,8 +96,29 @@ public class Product {
     }
 
     @Id
-    UUID id;
-    String name, description, image, category, brand, color;
+    @JsonProperty("id")
+    String id;
+    @JsonProperty("name")
+    @NonNull
+    String name;
+    @JsonProperty("description")
+    @NonNull
+
+    String description;
+    @JsonProperty("image")
+    String image;
+    @NonNull
+
+    @JsonProperty("category")
+    String category;
+    @JsonProperty("brand")
+    String brand;
+    @JsonProperty("color")
+    String color;
+    @NonNull
+    @JsonProperty("price")
     double price;
+    @NonNull
+    @JsonProperty("quantity")
     int quantity;
 }

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -25,7 +23,7 @@ public class ProductService {
         products = productsRepository.findAll();
     }
 
-    public Product getProductById(UUID id) {
+    public Product getProductById(String id) {
         return productsRepository.getProductById(id).orElse(null);
     }
 
@@ -38,7 +36,7 @@ public class ProductService {
         return product;
     }
 
-    public Product putProduct(UUID id, Product product) {
+    public Product putProduct(String id, Product product) {
         int index = products.indexOf(getProductById(id));
         if (index >= 0) {
             products.set(index, product);
@@ -48,7 +46,7 @@ public class ProductService {
             return postProduct(product);
     }
 
-    public void deleteProduct(UUID id) {
+    public void deleteProduct(String id) {
         Product product = getProductById(id);
         if (product != null) {
             products.remove(product);
