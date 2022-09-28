@@ -32,7 +32,7 @@ public class ProductService {
     }
 
     public Product postProduct(Product product) {
-        productsRepository.save(product);
+        productsRepository.insert(product);
         return product;
     }
 

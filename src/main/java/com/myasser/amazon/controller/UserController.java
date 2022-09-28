@@ -6,14 +6,13 @@ import com.myasser.amazon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
     UserService userService;
 
-    public UserController() {}
+    public UserController() {
+    }
 
     @Autowired
     UserController(UserService userService) {
@@ -21,23 +20,23 @@ public class UserController {
     }
 
     @GetMapping(path = {"id"})
-    public User getUser(@PathVariable("id") UUID id) {
+    public User getUser(@PathVariable("id") String id) {
         return userService.getUser(id);
     }
 
-    @PutMapping
-    public void putUser(User user) {
-        userService.putUser(user);
+    @PutMapping(path = {"id"})
+    public User putUser(String id, @RequestBody User user) {
+        return userService.putUser(id, user);
     }
 
     @PostMapping
-    public void postUser(User user) {
-        userService.postUser(user);
+    public User postUser(@RequestBody User user) {
+        return userService.postUser(user);
     }
 
     @GetMapping(path = {"id/cart"})
-    public Cart getCart(@PathVariable("id") UUID id) {
+    public Cart getCart(@PathVariable("id") String id) {
         return userService.getCart(id);
     }
 
-    }
+}

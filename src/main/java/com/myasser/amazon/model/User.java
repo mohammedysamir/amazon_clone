@@ -4,20 +4,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 @Document("users")
 public class User {
     @Id
-    UUID userId;
-    String name, email, password;
+    @JsonProperty("id")
+    String userId;
+    @JsonProperty("name")
+    String name;
+    @JsonProperty("email")
+    String email;
+    @JsonProperty("password")
+    String password;
+    @JsonProperty("cart")
     Cart cart;
 
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -53,20 +58,13 @@ public class User {
         this.cart = cart;
     }
 
-    public User(@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password,@JsonProperty("cart") Cart cart) {
+    public User(String name, String email, String password, Cart cart) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.cart = cart;
     }
 
-    public User(@JsonProperty("name") String name) {
-        this.name = name;
-    }
-
-    public User(@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public User() {
     }
 }

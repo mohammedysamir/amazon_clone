@@ -6,9 +6,8 @@ import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface MongoProductsRepository extends MongoRepository<Product, UUID> {
+public interface MongoProductsRepository extends MongoRepository<Product, String> {
 
     @Query("{ 'id' : ?0 }")
     Optional<Product> getProductById(String id);
