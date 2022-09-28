@@ -38,7 +38,6 @@ public class AmazonSystemController {
         return amazonSystemService.postUser(user);
     }
 
-    //todo: issues when operate on user's id
     @DeleteMapping(path = "{id}")
     public void deleteUser(@PathVariable String id) {
         amazonSystemService.deleteUser(id);
