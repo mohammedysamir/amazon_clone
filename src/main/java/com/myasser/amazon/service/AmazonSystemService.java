@@ -1,7 +1,9 @@
 package com.myasser.amazon.service;
 
+import com.myasser.amazon.database.MongoProductsRepository;
 import com.myasser.amazon.database.MongoSystemRepository;
 import com.myasser.amazon.model.AmazonSystem;
+import com.myasser.amazon.model.Product;
 import com.myasser.amazon.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +49,17 @@ public class AmazonSystemService {
 
     public void deleteAllUsers() {
         systemRepository.deleteAll();
+    }
+
+    public List<Product> getProducts() {
+        return productService().getAllProducts();
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        return productService().getProductsByCategory(category);
+    }
+
+    private ProductService productService() {
+        return new ProductService();
     }
 }

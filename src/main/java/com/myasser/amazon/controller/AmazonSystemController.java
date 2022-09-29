@@ -1,6 +1,7 @@
 package com.myasser.amazon.controller;
 
 import com.myasser.amazon.model.Cart;
+import com.myasser.amazon.model.Product;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.AmazonSystemService;
 import com.myasser.amazon.service.UserService;
@@ -31,6 +32,16 @@ public class AmazonSystemController {
     @GetMapping
     public List<User> getUsers() {
         return amazonSystemService.getUsers();
+    }
+
+    @GetMapping(path = "all")
+    public List<Product> getAllProducts() {
+        return amazonSystemService.getProducts();
+    }
+
+    @GetMapping(path = "category/{category}")
+    public List<Product> getProductsByCategory(@PathVariable("category") String category) {
+        return amazonSystemService.getProductsByCategory(category);
     }
 
     @PostMapping(consumes = {"application/json"})

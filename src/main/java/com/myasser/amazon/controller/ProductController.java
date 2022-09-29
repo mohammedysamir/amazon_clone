@@ -31,12 +31,6 @@ public class ProductController {
     public Product putProduct(@PathVariable String id, @RequestBody Product product) {
         return service.putProduct(id, product);
     }
-
-    @GetMapping(path = "{id}")
-    public Product getProductById(@PathVariable String id) {
-        return service.getProductById(id);
-    }
-
     @GetMapping
     public List<Product> getAllProducts() {
         return service.getAllProducts();
@@ -45,11 +39,5 @@ public class ProductController {
     @DeleteMapping(path = "{id}")
     public void deleteProduct(@PathVariable String id) {
         service.deleteProduct(id);
-    }
-
-    //todo: move to system controller
-    @GetMapping(path = "category/{category}") //todo: test path
-    public List<Product> getProductsByCategory(@PathVariable String category) {
-        return service.getProductsByCategory(category);
     }
 }
