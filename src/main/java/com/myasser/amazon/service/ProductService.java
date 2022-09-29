@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -27,12 +28,12 @@ public class ProductService {
         return productsRepository.getProductById(id).orElse(null);
     }
 
-    //todo: need to be removed and just called from system
     public List<Product> getAllProducts() {
         return productsRepository.findAll();
     }
 
     public Product postProduct(Product product) {
+        product.setId(UUID.randomUUID().toString());
         productsRepository.insert(product);
         return product;
     }
