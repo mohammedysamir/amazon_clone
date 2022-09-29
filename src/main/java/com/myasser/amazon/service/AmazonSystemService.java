@@ -59,6 +59,10 @@ public class AmazonSystemService {
         return productService().getProductsByCategory(category);
     }
 
+    public Product postProduct(Product product) {
+        return productService().postProduct(product);
+    }
+
     private ProductService productService() {
         return new ProductService();
     }

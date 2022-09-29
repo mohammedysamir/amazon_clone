@@ -48,11 +48,16 @@ public class AmazonSystemController {
     public User postUser(@RequestBody User user) {
         user.setUserId(UUID.randomUUID().toString());
         //to initiate user's cart
-        if (user.getCart() == null){
+        if (user.getCart() == null) {
             UserService userService = new UserService();
             user.setCart(userService.initiateUserCart(user.getUserId()));
         }
         return amazonSystemService.postUser(user);
+    }
+
+    @PostMapping("/product")
+    public Product postProduct(@RequestBody Product product) {
+        return amazonSystemService.postProduct(product);
     }
 
     @DeleteMapping(path = "{id}")
@@ -69,4 +74,20 @@ public class AmazonSystemController {
     public User putUser(@PathVariable String id, @RequestBody User user) {
         return amazonSystemService.putUser(id, user);
     }
+    /*
+     * Get:
+     *   all users: /
+     *   user by id: /{id}
+     *   all products: /all
+     *   products by category: /category/{category}
+     *
+     * Post:
+     *   user: /
+     *   product: /product
+     * Delete:
+     *   user: /{id}
+     *  all users: /
+     * Put:
+     *  user: /{id}
+     * */
 }
