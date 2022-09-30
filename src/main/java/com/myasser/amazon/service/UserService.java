@@ -16,22 +16,21 @@ import java.util.UUID;
 @Service
 @Configuration
 public class UserService {
-    MongoUsersRepository usersRepository;
 
-    List<User> users;
+    MongoUsersRepository usersRepository;
+    CartService cartService;
 
     public UserService() {
-        users = new ArrayList<User>();
     }
 
     @Autowired
-    UserService(MongoUsersRepository userRepo) {
+    UserService(MongoUsersRepository userRepo, CartService cartService) {
         this.usersRepository = userRepo;
-        users = usersRepository.findAll();
+        this.cartService = cartService;
     }
 
     public User getUser(String id) {
-        return usersRepository.getUserById(id).orElse(null);
+        return usersRepository.findById(id).orElse(null);
     }
 
     public User postUser(User user) {
@@ -43,15 +42,14 @@ public class UserService {
     public User putUser(String id, User user) {
         int index = usersRepository.findAll().indexOf(getUser(id));
         if (index >= 0) {
-            users.set(index, user);
-            usersRepository.save(user);
-            return users.get(index);
+            return usersRepository.save(user);
         } else
             return postUser(user);
     }
 
     public Cart getCart(String id) {
-        return usersRepository.getUserCart(id);
+        Optional<Cart> cart = cartService.getCartByUserId(id);
+        return cart.orElse(null);
     }
 
     public Cart initiateUserCart(String userId) {
@@ -63,29 +61,19 @@ public class UserService {
     }
 
     public Cart addProductToCart(String userId, Product product) {
-        Cart cart = getCart(userId);
-        cart.getCartProduct().add(product);
-        User user = getUser(userId);
-        user.setCart(cart);
-        usersRepository.save(user);
-        return cart;
+        return cartService.addProductToCart(userId, product);
     }
 
     public Cart deleteProductFromCart(String userId, String productId) {
-        Cart cart = getCart(userId);
-        cart.getCartProduct().removeIf(product -> product.getId().equals(productId));
-        User user = getUser(userId);
-        user.setCart(cart);
-        usersRepository.save(user);
-        return cart;
+        return cartService.deleteProductById(userId, productId);
     }
 
     public List<Product> getCartProducts(String userId) {
-        return getCart(userId).getCartProduct();
+        return cartService.getCartProducts(userId);
     }
 
-    public Optional<Product> getCartProduct(String userId, String productId) {
-        return getCartProducts(userId).stream().filter(product -> product.getId().equals(productId)).findFirst();
+    public Product getCartProduct(String userId, String productId) {
+        return cartService.getCartProduct(userId, productId);
     }
 
     public Double calculateCartTotal(String userId) {

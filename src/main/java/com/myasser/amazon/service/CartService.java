@@ -21,7 +21,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public void addProductToCart(String userId, Product product) {
+    public Cart addProductToCart(String userId, Product product) {
         //get cart by user id
         //add product to its list -> save cart
         Optional<Cart> cart = cartRepository.findCartByUserId(userId);
@@ -30,23 +30,27 @@ public class CartService {
             products.add(product);
             cart.get().setCartProduct(products);
             cartRepository.save(cart.get());
+            return cart.get();
         }
         System.out.println("Error: Cart not found");
+        return null;
     }
 
     public Optional<Cart> getCartByUserId(String userId) {
         return cartRepository.findCartByUserId(userId);
     }
 
-    public void deleteProductById(String userId, String productId) {
+    public Cart deleteProductById(String userId, String productId) {
         Optional<Cart> cart = cartRepository.findCartByUserId(userId);
         if (cart.isPresent()) {
             List<Product> products = cart.get().getCartProduct();
             products.removeIf(product -> product.getId().equals(productId));
             cart.get().setCartProduct(products);
             cartRepository.save(cart.get());
+            return cart.get();
         }
         System.out.println("Error: Cart not found");
+        return null;
     }
 
     public List<Product> getCartProducts(String userId) {

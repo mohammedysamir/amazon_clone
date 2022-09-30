@@ -38,7 +38,7 @@ public class CartController {
         cartService.deleteProductById(userId, productId);
     }
 
-    @GetMapping(path = {"{userId}/products})"})
+    @GetMapping(path = {"{userId}/products)"})
     public List<Product> getCartProducts(@NonNull @PathVariable String userId) {
         return cartService.getCartProducts(userId);
     }

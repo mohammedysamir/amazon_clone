@@ -24,33 +24,33 @@ public class UserController {
     }
 
     //Get methods
-    @GetMapping(path = {"id"})
+    @GetMapping(path = {"{id}"})
     public User getUser(@PathVariable String id) {
         return userService.getUser(id);
     }
 
-    @GetMapping(path = {"id/cart"})
+    @GetMapping(path = {"{id}/cart"})
     public Cart getCart(@PathVariable String id) {
         return userService.getCart(id);
     }
 
-    @GetMapping(path = {"id/cart/total"})
+    @GetMapping(path = {"{id}/cart/total"})
     public double getCartTotal(@PathVariable String id) {
         return userService.calculateCartTotal(id);
     }
 
-    @GetMapping(path = {"id/cart/products"})
+    @GetMapping(path = {"{id}/cart/products"})
     public List<Product> getCartProducts(@PathVariable String id) {
         return userService.getCartProducts(id);
     }
 
-    @GetMapping(path = {"id/cart/products/{productId}"})
+    @GetMapping(path = {"{id}/cart/products/{productId}"})
     public Product getCartProduct(@PathVariable String id, @PathVariable String productId) {
-        return userService.getCartProduct(id, productId).orElse(null);
+        return userService.getCartProduct(id, productId);
     }
 
     //Put methods
-    @PutMapping(path = {"id"})
+    @PutMapping(path = {"{id}"})
     public User putUser(@PathVariable String id, @RequestBody User user) {
         return userService.putUser(id, user);
     }
