@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequestMapping("/product")
 @RestController
@@ -25,6 +24,13 @@ public class ProductController {
     public Product putProduct(@PathVariable String id, @RequestBody Product product) {
         return service.putProduct(id, product);
     }
+
+    @GetMapping(path = "{id}")
+    public Product getProduct(@PathVariable String id) {
+        return service.getProductById(id);
+    }
+
+    //todo: maybe need to delete below functions -> accessed from system after all.
     @GetMapping
     public List<Product> getAllProducts() {
         return service.getAllProducts();

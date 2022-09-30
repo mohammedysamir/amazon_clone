@@ -2,7 +2,6 @@ package com.myasser.amazon.service;
 
 import com.myasser.amazon.database.MongoProductsRepository;
 import com.myasser.amazon.database.MongoSystemRepository;
-import com.myasser.amazon.model.AmazonSystem;
 import com.myasser.amazon.model.Product;
 import com.myasser.amazon.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,12 @@ import java.util.Optional;
 @Service
 public class AmazonSystemService {
     MongoSystemRepository systemRepository;
+    ProductService productService;
 
     @Autowired
-    public AmazonSystemService(MongoSystemRepository systemRepository) {
+    public AmazonSystemService(MongoSystemRepository systemRepository, ProductService productService) {
         this.systemRepository = systemRepository;
+        this.productService = productService;
     }
 
     public List<User> getUsers() {
@@ -52,18 +53,27 @@ public class AmazonSystemService {
     }
 
     public List<Product> getProducts() {
-        return productService().getAllProducts();
+        return productService.getAllProducts();
     }
 
     public List<Product> getProductsByCategory(String category) {
-        return productService().getProductsByCategory(category);
+        return productService.getProductsByCategory(category);
     }
 
     public Product postProduct(Product product) {
-        return productService().postProduct(product);
+        return productService.postProduct(product);
     }
 
-    private ProductService productService() {
-        return new ProductService();
+    public void deleteProduct(String id) {
+        productService.deleteProduct(id);
     }
+
+    public void deleteAllProducts() {
+        productService.deleteAllProducts();
+    }
+
+    public Product getProductById(String id) {
+        return productService.getProductById(id);
+    }
+
 }

@@ -60,4 +60,8 @@ public class ProductService {
     public List<Product> getProductsByCategory(String category) {
         return productsRepository.getProductByCategory(category).orElse(new ArrayList<Product>());
     }
+
+    public void deleteAllProducts() {
+        productsRepository.deleteAll();
+    }
 }

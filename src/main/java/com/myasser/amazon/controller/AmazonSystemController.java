@@ -1,6 +1,5 @@
 package com.myasser.amazon.controller;
 
-import com.myasser.amazon.model.Cart;
 import com.myasser.amazon.model.Product;
 import com.myasser.amazon.model.User;
 import com.myasser.amazon.service.AmazonSystemService;
@@ -44,6 +43,11 @@ public class AmazonSystemController {
         return amazonSystemService.getProductsByCategory(category);
     }
 
+    @GetMapping(path ="product/{id}")
+    public Product getProductById(@PathVariable("id") String id) {
+        return amazonSystemService.getProductById(id);
+    }
+
     @PostMapping(consumes = {"application/json"})
     public User postUser(@RequestBody User user) {
         user.setUserId(UUID.randomUUID().toString());
@@ -55,7 +59,7 @@ public class AmazonSystemController {
         return amazonSystemService.postUser(user);
     }
 
-    @PostMapping("/product")
+    @PostMapping(path = "/product", consumes = {"application/json"})
     public Product postProduct(@RequestBody Product product) {
         return amazonSystemService.postProduct(product);
     }
@@ -70,6 +74,16 @@ public class AmazonSystemController {
         amazonSystemService.deleteAllUsers();
     }
 
+    @DeleteMapping(path = "/product/{id}")
+    public void deleteProduct(@PathVariable String id) {
+        amazonSystemService.deleteProduct(id);
+    }
+
+    @DeleteMapping(path = "/products")
+    public void deleteAllProducts() {
+        amazonSystemService.deleteAllProducts();
+    }
+
     @PutMapping(path = "{id}")
     public User putUser(@PathVariable String id, @RequestBody User user) {
         return amazonSystemService.putUser(id, user);
@@ -80,13 +94,17 @@ public class AmazonSystemController {
      *   user by id: /{id}
      *   all products: /all
      *   products by category: /category/{category}
-     *
+     *  product by id: /product/{id}
      * Post:
      *   user: /
      *   product: /product
+     *
      * Delete:
-     *   user: /{id}
+     *  user: /{id}
      *  all users: /
+     *  product: /product/{id}
+     *  all products: /products
+     *
      * Put:
      *  user: /{id}
      * */
