@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 
@@ -29,6 +30,7 @@ public class AmazonSystem {
     @Setter
     @Getter
     @JsonProperty("users")
+    @DBRef
     List<User> users;
 
     public AmazonSystem(List<User> users) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("users")
@@ -28,6 +29,7 @@ public class User {
     @Setter
     @Getter
     @JsonProperty("cart")
+    @DBRef
     Cart cart;
 
     public User(String name, String email, String password, Cart cart) {

@@ -8,13 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 import java.util.List;
 
-@Document("cart")
+@Document(collection = "carts")
 public class Cart {
     @Id
     @Setter
     @Getter
     @JsonProperty("cartId")
-    @NonNull
     String cartId;
     @JsonProperty("products")
     @Setter
